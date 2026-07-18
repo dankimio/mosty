@@ -2,6 +2,7 @@ export const bridges = [
   {
     id: "palace",
     name: "Дворцовый мост",
+    shortName: "Дворцовый",
     coordinates: [30.3081, 59.94118],
     closures: [
       [70, 170],
@@ -11,12 +12,14 @@ export const bridges = [
   {
     id: "trinity",
     name: "Троицкий мост",
+    shortName: "Троицкий",
     coordinates: [30.32735, 59.94889],
     closures: [[80, 290]],
   },
   {
     id: "annunciation",
     name: "Благовещенский мост",
+    shortName: "Благовещенский",
     coordinates: [30.28958, 59.93478],
     closures: [
       [85, 165],
@@ -26,13 +29,16 @@ export const bridges = [
   {
     id: "liteyny",
     name: "Литейный мост",
+    shortName: "Литейный",
     coordinates: [30.34952, 59.95194],
     closures: [[100, 285]],
   },
   {
     id: "volodarsky",
     name: "Володарский мост",
+    shortName: "Володарский",
     coordinates: [30.45322, 59.87773],
+    includeInInitialBounds: false,
     closures: [
       [120, 225],
       [255, 330],
@@ -41,12 +47,14 @@ export const bridges = [
   {
     id: "bolsheokhtinsky",
     name: "Большеохтинский мост",
+    shortName: "Большеохтинский",
     coordinates: [30.40119, 59.94266],
     closures: [[120, 300]],
   },
   {
     id: "exchange",
     name: "Биржевой мост",
+    shortName: "Биржевой",
     coordinates: [30.30337, 59.94628],
     closures: [
       [120, 175],
@@ -56,6 +64,7 @@ export const bridges = [
   {
     id: "tuchkov",
     name: "Тучков мост",
+    shortName: "Тучков",
     coordinates: [30.28551, 59.94895],
     closures: [
       [120, 175],
@@ -65,6 +74,7 @@ export const bridges = [
   {
     id: "alexander-nevsky",
     name: "Мост Александра Невского",
+    shortName: "Александра Невского",
     coordinates: [30.39563, 59.92571],
     closures: [[140, 310]],
   },
