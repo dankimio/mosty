@@ -115,7 +115,8 @@ export function BridgeMap({ minute, selectedBridgeId, onBridgeSelect }) {
         `${bridge.name}. Проезд ${status === STATUS_CLOSED ? "закрыт" : "открыт"}`,
       )
       element.innerHTML = bridgeMarkerMarkup()
-      element.querySelector(".bridge-marker__label").textContent = bridge.name
+      element.querySelector(".bridge-marker__label").textContent =
+        bridge.name.replace(/^Мост\s+|\s+мост$/gi, "")
       element.addEventListener("click", () => {
         onBridgeSelectRef.current(bridge.id)
       })
