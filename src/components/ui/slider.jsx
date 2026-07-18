@@ -10,6 +10,7 @@ function Slider({
   min = 0,
   max = 100,
   "aria-label": ariaLabel,
+  "aria-valuetext": ariaValueText,
   ...props
 }) {
   const _values = React.useMemo(() =>
@@ -49,6 +50,7 @@ function Slider({
           aria-label={
             _values.length > 1 ? `${ariaLabel} ${index + 1}` : ariaLabel
           }
+          aria-valuetext={ariaValueText}
           className="block size-5 shrink-0 rounded-full border-2 border-primary bg-white shadow-lg shadow-black/30 ring-ring/50 transition-[color,box-shadow] hover:ring-4 focus-visible:ring-4 focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50" />
       ))}
     </SliderPrimitive.Root>

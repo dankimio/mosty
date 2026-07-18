@@ -22,7 +22,7 @@ export function TimelinePanel({ minute, summary, onMinuteChange }) {
         <CardContent className="px-4 pb-[calc(14px+env(safe-area-inset-bottom))] pt-4 sm:px-6 sm:pb-4">
           <div className="flex items-start justify-between gap-4">
             <div>
-              <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-slate-400">
+              <p className="text-xs font-medium uppercase tracking-[0.16em] text-slate-300">
                 Время на карте
               </p>
               <time className="mt-0.5 block text-3xl font-semibold tabular-nums tracking-tight text-white">
@@ -39,7 +39,7 @@ export function TimelinePanel({ minute, summary, onMinuteChange }) {
                   {summary.closed} закрыты
                 </Badge>
               </div>
-              <div className="hidden items-center gap-3 text-[11px] text-slate-400 sm:flex">
+              <div className="hidden items-center gap-3 text-xs text-slate-300 sm:flex">
                 <span className="inline-flex items-center gap-1.5">
                   <span className="size-2 rounded-full bg-teal-300" /> проезд открыт
                 </span>
@@ -85,15 +85,16 @@ export function TimelinePanel({ minute, summary, onMinuteChange }) {
               max={360}
               step={1}
               aria-label="Время на карте"
+              aria-valuetext={formatMinutes(minute)}
               className="relative z-10 h-6"
               onValueChange={([value]) => onMinuteChange(value)}
             />
 
-            <div className="relative mt-0.5 h-4 text-[10px] tabular-nums text-slate-500">
+            <div className="relative mt-1 h-5 text-xs tabular-nums text-slate-400">
               {HOUR_MARKS.map((hour) => (
                 <span
                   key={hour}
-                  className="absolute -translate-x-1/2"
+                  className={`absolute -translate-x-1/2 ${hour % 120 === 0 ? "" : "hidden sm:block"}`}
                   style={{ left: `${(hour / 360) * 100}%` }}
                 >
                   {formatMinutes(hour)}
@@ -102,7 +103,7 @@ export function TimelinePanel({ minute, summary, onMinuteChange }) {
             </div>
           </div>
 
-          <p className="mt-2 text-center text-[10px] leading-4 text-slate-500 sm:text-left">
+          <p className="mt-2 text-center text-xs leading-5 text-slate-400 sm:text-left">
             Плановое расписание · фактическая разводка может отличаться
           </p>
         </CardContent>

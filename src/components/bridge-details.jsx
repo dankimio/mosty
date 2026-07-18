@@ -64,9 +64,9 @@ export function BridgeDetails({ bridge, minute, onClose }) {
 
           <Separator className="bg-white/10" />
 
-          <div className="flex items-start justify-between gap-4 text-xs">
-            <span className="text-slate-500">Расписание закрытий</span>
-            <ul className="space-y-1 text-right font-medium tabular-nums text-slate-200">
+          <div className="flex items-start justify-between gap-4 text-sm">
+            <span className="text-slate-400">Расписание закрытий</span>
+            <ul className="space-y-1.5 text-right font-medium tabular-nums text-slate-100">
               {bridge.closures.map(([start, end]) => (
                 <li key={`${start}-${end}`}>
                   {formatMinutes(start)}–{formatMinutes(end)}

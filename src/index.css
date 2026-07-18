@@ -267,7 +267,7 @@
   background: rgb(4 12 23 / 0.82);
   box-shadow: 0 5px 18px rgb(0 0 0 / 0.32);
   color: rgb(226 232 240);
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 600;
   line-height: 1;
   white-space: nowrap;
@@ -334,8 +334,8 @@
   }
 
   .bridge-marker__label {
-    font-size: 9px;
-    padding: 4px 6px;
+    font-size: 11px;
+    padding: 5px 7px;
     transform: translate(24px, -28px);
   }
 
@@ -367,6 +367,12 @@
   .maplibregl-ctrl-top-right {
     top: 84px;
     right: 4px;
+  }
+}
+
+@media (max-width: 640px) {
+  .bridge-marker[data-bridge-id="palace"] .bridge-marker__label {
+    transform: translate(124px, 18px);
   }
 }
 

@@ -48,8 +48,11 @@ function App() {
               <h1 className="truncate text-base font-semibold tracking-tight sm:text-lg">
                 Мосты Петербурга
               </h1>
-              <p className="text-xs text-slate-400">
-                Состояние автомобильного проезда
+              <p className="text-sm text-slate-300">
+                <span className="sm:hidden">Состояние проезда</span>
+                <span className="hidden sm:inline">
+                  Состояние автомобильного проезда
+                </span>
               </p>
             </div>
 
