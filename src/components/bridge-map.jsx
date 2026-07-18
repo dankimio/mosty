@@ -9,6 +9,7 @@ import { bridges } from "@/data/bridges"
 import { getBridgeStatus, STATUS_CLOSED } from "@/lib/schedule"
 
 const MAP_STYLE = "https://tiles.openfreemap.org/styles/dark"
+const cameraBridges = bridges.filter((bridge) => bridge.id !== "volodarsky")
 
 function bridgeMarkerMarkup() {
   return `
@@ -57,11 +58,11 @@ export function BridgeMap({ minute, selectedBridgeId, onBridgeSelect }) {
       bottom: compact ? 250 : 210,
       left: compact ? 36 : 90,
     }
-    const bounds = bridges.reduce(
+    const bounds = cameraBridges.reduce(
       (result, bridge) => result.extend(bridge.coordinates),
       new maplibregl.LngLatBounds(
-        bridges[0].coordinates,
-        bridges[0].coordinates,
+        cameraBridges[0].coordinates,
+        cameraBridges[0].coordinates,
       ),
     )
     const map = new maplibregl.Map({
