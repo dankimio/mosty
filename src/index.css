@@ -240,19 +240,19 @@
 }
 
 .bridge-marker__leaf--left {
-  transform-origin: right bottom;
-}
-
-.bridge-marker__leaf--right {
   transform-origin: left bottom;
 }
 
+.bridge-marker__leaf--right {
+  transform-origin: right bottom;
+}
+
 .bridge-marker[data-status="closed"] .bridge-marker__leaf--left {
-  transform: rotate(-58deg) translateY(-1px);
+  transform: rotate(-58deg);
 }
 
 .bridge-marker[data-status="closed"] .bridge-marker__leaf--right {
-  transform: rotate(58deg) translateY(-1px);
+  transform: rotate(58deg);
 }
 
 .bridge-marker__label {
