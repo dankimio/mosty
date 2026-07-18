@@ -16,7 +16,7 @@ import { bridges } from "@/data/bridges"
 import { getInitialMinute, getStatusSummary } from "@/lib/schedule"
 
 const SOURCE_URL =
-  "https://www.mostotrest-spb.krti.gov.spb.ru/razvodka-mostov"
+  "https://mostotrest-spb.ru/razvodka-mostov"
 
 function App() {
   const [minute, setMinute] = useState(getInitialMinute)

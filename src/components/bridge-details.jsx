@@ -13,7 +13,7 @@ import {
 } from "@/lib/schedule"
 
 const SOURCE_URL =
-  "https://www.mostotrest-spb.krti.gov.spb.ru/razvodka-mostov"
+  "https://mostotrest-spb.ru/razvodka-mostov"
 
 export function BridgeDetails({ bridge, minute, onClose }) {
   if (!bridge) return null
