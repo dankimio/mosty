@@ -106,7 +106,6 @@ export function BridgeMap({ minute, selectedBridgeId, onBridgeSelect }) {
 
       element.type = "button"
       element.className = "bridge-marker"
-      element.dataset.bridgeId = bridge.id
       element.dataset.status = status
       element.dataset.selected = String(
         selectedBridgeIdRef.current === bridge.id,
@@ -115,8 +114,6 @@ export function BridgeMap({ minute, selectedBridgeId, onBridgeSelect }) {
         "aria-label",
         `${bridge.name}. Проезд ${status === STATUS_CLOSED ? "закрыт" : "открыт"}`,
       )
-      element.style.setProperty("--bridge-label-x", `${bridge.labelOffset[0]}px`)
-      element.style.setProperty("--bridge-label-y", `${bridge.labelOffset[1]}px`)
       element.innerHTML = bridgeMarkerMarkup()
       element.querySelector(".bridge-marker__label").textContent = bridge.name
       element.addEventListener("click", () => {
