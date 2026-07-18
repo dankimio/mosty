@@ -9,7 +9,17 @@ import { bridges } from "@/data/bridges"
 import { getBridgeStatus, STATUS_CLOSED } from "@/lib/schedule"
 
 const MAP_STYLE = "https://tiles.openfreemap.org/styles/dark"
-const cameraBridges = bridges.filter((bridge) => bridge.id !== "volodarsky")
+const cameraBridges = bridges.filter(
+  (bridge) => bridge.includeInInitialBounds !== false,
+)
+
+function getCameraPadding() {
+  if (window.matchMedia("(max-width: 640px)").matches) {
+    return { top: 112, right: 36, bottom: 248, left: 36 }
+  }
+
+  return { top: 120, right: 88, bottom: 208, left: 88 }
+}
 
 function bridgeMarkerMarkup() {
   return `
@@ -51,13 +61,6 @@ export function BridgeMap({ minute, selectedBridgeId, onBridgeSelect }) {
     let hasLoaded = false
     let disposed = false
     let fitFrame = null
-    const compact = window.matchMedia("(max-width: 640px)").matches
-    const cameraPadding = {
-      top: compact ? 112 : 118,
-      right: compact ? 36 : 90,
-      bottom: compact ? 250 : 210,
-      left: compact ? 36 : 90,
-    }
     const bounds = cameraBridges.reduce(
       (result, bridge) => result.extend(bridge.coordinates),
       new maplibregl.LngLatBounds(
@@ -84,7 +87,7 @@ export function BridgeMap({ minute, selectedBridgeId, onBridgeSelect }) {
     })
 
     const initialCamera = map.cameraForBounds(bounds, {
-      padding: cameraPadding,
+      padding: getCameraPadding(),
       maxZoom: 12.2,
     })
     if (initialCamera) map.jumpTo(initialCamera)
@@ -115,8 +118,7 @@ export function BridgeMap({ minute, selectedBridgeId, onBridgeSelect }) {
         `${bridge.name}. Проезд ${status === STATUS_CLOSED ? "закрыт" : "открыт"}`,
       )
       element.innerHTML = bridgeMarkerMarkup()
-      element.querySelector(".bridge-marker__label").textContent =
-        bridge.name.replace(/^Мост\s+|\s+мост$/gi, "")
+      element.querySelector(".bridge-marker__label").textContent = bridge.shortName
       element.addEventListener("click", () => {
         onBridgeSelectRef.current(bridge.id)
       })
@@ -131,6 +133,23 @@ export function BridgeMap({ minute, selectedBridgeId, onBridgeSelect }) {
 
     markerElementsRef.current = markerElements
 
+    const fitAllBridges = () => {
+      map.resize()
+      const camera = map.cameraForBounds(bounds, {
+        padding: getCameraPadding(),
+        maxZoom: 12.2,
+      })
+      if (camera) map.jumpTo(camera)
+    }
+
+    const scheduleFit = () => {
+      if (fitFrame !== null) cancelAnimationFrame(fitFrame)
+      fitFrame = requestAnimationFrame(() => {
+        fitFrame = null
+        fitAllBridges()
+      })
+    }
+
     const handleLoad = () => {
       if (disposed) return
 
@@ -138,16 +157,11 @@ export function BridgeMap({ minute, selectedBridgeId, onBridgeSelect }) {
       setMapReady(true)
       setMapError(false)
 
-      const fitAllBridges = () => {
-        map.resize()
-        const camera = map.cameraForBounds(bounds, {
-          padding: cameraPadding,
-          maxZoom: 12.2,
-        })
-        if (camera) map.jumpTo(camera)
-      }
+      scheduleFit()
+    }
 
-      fitFrame = requestAnimationFrame(fitAllBridges)
+    const handleResize = () => {
+      if (hasLoaded) scheduleFit()
     }
 
     const handleError = () => {
@@ -159,12 +173,14 @@ export function BridgeMap({ minute, selectedBridgeId, onBridgeSelect }) {
 
     map.on("load", handleLoad)
     map.on("error", handleError)
+    window.addEventListener("resize", handleResize)
 
     return () => {
       disposed = true
       if (fitFrame !== null) cancelAnimationFrame(fitFrame)
       map.off("load", handleLoad)
       map.off("error", handleError)
+      window.removeEventListener("resize", handleResize)
       markerInstances.forEach((marker) => marker.remove())
       markerElementsRef.current = new Map()
       map.remove()

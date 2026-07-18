@@ -284,8 +284,8 @@
 }
 
 .maplibregl-ctrl-top-right {
-  top: 82px;
-  right: 8px;
+  top: 5.25rem;
+  right: 0.5rem;
 }
 
 .maplibregl-ctrl-group {
@@ -329,7 +329,7 @@
   }
 
   .bridge-details-shell {
-    bottom: calc(12.9rem + env(safe-area-inset-bottom));
+    bottom: calc(13rem + env(safe-area-inset-bottom));
     padding-inline: 0.5rem;
   }
 
@@ -339,8 +339,8 @@
   }
 
   .maplibregl-ctrl-top-right {
-    top: 84px;
-    right: 4px;
+    top: 5.25rem;
+    right: 0.25rem;
   }
 }
 
