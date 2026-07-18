@@ -2,17 +2,65 @@
 <html lang="ru">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>График разводки мостов Санкт-Петербурга — 2026</title>
     <meta
       name="description"
-      content="Интерактивная карта планового графика разводных мостов Санкт-Петербурга"
+      content="Интерактивная карта и график разводки мостов Санкт-Петербурга на 2026 год. Проверьте, открыт или закрыт проезд в выбранное время."
     />
+    <meta name="robots" content="index, follow" />
+    <meta name="application-name" content="Мосты Петербурга" />
     <meta name="theme-color" content="#07111f" />
-    <title>Мосты Петербурга — график разводки</title>
+    <meta name="color-scheme" content="dark" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="ru_RU" />
+    <meta property="og:site_name" content="Мосты Петербурга" />
+    <meta
+      property="og:title"
+      content="График разводки мостов Санкт-Петербурга — 2026"
+    />
+    <meta
+      property="og:description"
+      content="Интерактивная карта планового расписания разводных мостов Петербурга."
+    />
+
+    <meta name="twitter:card" content="summary" />
+    <meta
+      name="twitter:title"
+      content="График разводки мостов Санкт-Петербурга — 2026"
+    />
+    <meta
+      name="twitter:description"
+      content="Проверьте на карте, открыт или закрыт проезд по мостам Петербурга."
+    />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://tiles.openfreemap.org" crossorigin />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Мосты Петербурга",
+        "description": "Интерактивная карта и график разводки мостов Санкт-Петербурга на 2026 год.",
+        "applicationCategory": "TravelApplication",
+        "operatingSystem": "Any",
+        "inLanguage": "ru-RU",
+        "isAccessibleForFree": true,
+        "about": {
+          "@type": "City",
+          "name": "Санкт-Петербург"
+        }
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>
+    <noscript>
+      Для просмотра интерактивной карты разводных мостов Санкт-Петербурга
+      необходимо включить JavaScript.
+    </noscript>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
