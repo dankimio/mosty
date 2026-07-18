@@ -1,16 +1,39 @@
-# React + Vite
+# Мосты Петербурга
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Интерактивная карта планового графика разводных мостов Санкт-Петербурга на навигацию 2026 года. Слайдер времени показывает, открыт или закрыт автомобильный и пешеходный проезд по девяти мостам с фиксированным расписанием.
 
-Currently, two official plugins are available:
+## Запуск
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+```bash
+npm install
+npm run dev
+```
 
-## React Compiler
+Production-сборка и линтер:
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```bash
+npm run build
+npm run lint
+```
 
-## Expanding the Oxlint configuration
+## Стек
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+- React 19 и Vite
+- JavaScript без TypeScript
+- Tailwind CSS 4 и shadcn/ui
+- MapLibre GL JS
+- OpenFreeMap / OpenStreetMap
+
+## Данные
+
+Расписание хранится локально в `src/data/bridges.js`. Источник — [официальный график СПб ГБУ «Мостотрест»](https://www.mostotrest-spb.krti.gov.spb.ru/razvodka-mostov).
+
+Интервалы обозначают закрытие автомобильного и пешеходного движения, а не точное физическое положение разводного пролёта.
+
+## Ограничения MVP
+
+- отображается плановое, а не фактическое состояние;
+- нет оперативных отмен и досрочного наведения;
+- три моста, разводимые по заявкам, не включены;
+- для загрузки карты требуется интернет;
+- интерфейс доступен только на русском языке.
