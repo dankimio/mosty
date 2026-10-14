@@ -40,6 +40,6 @@ npm run lint
 
 ## Хостинг
 
-Cloudflare Pages собирает ветку `main`: `npm run build`, каталог `dist`, Node.js 26.
+Cloudflare Pages собирает ветку `main`: `npm run build`, каталог `dist`.
 
 Домен: mosty.dan.kim.
