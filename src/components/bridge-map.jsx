@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react"
-import maplibregl from "maplibre-gl"
+import * as maplibregl from "maplibre-gl"
+import mapWorkerUrl from "maplibre-gl/dist/maplibre-gl-worker.mjs?url"
 import { AlertCircle, RefreshCw } from "lucide-react"
 
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
@@ -7,6 +8,8 @@ import { Button } from "@/components/ui/button"
 import { Skeleton } from "@/components/ui/skeleton"
 import { bridges } from "@/data/bridges"
 import { getBridgeStatus, STATUS_CLOSED } from "@/lib/schedule"
+
+maplibregl.setWorkerUrl(mapWorkerUrl)
 
 const MAP_STYLE = "https://tiles.openfreemap.org/styles/dark"
 const cameraBridges = bridges.filter(
@@ -51,9 +54,11 @@ export function BridgeMap({ minute, selectedBridgeId, onBridgeSelect }) {
   const [mapError, setMapError] = useState(false)
   const [retryKey, setRetryKey] = useState(0)
 
-  onBridgeSelectRef.current = onBridgeSelect
-  minuteRef.current = minute
-  selectedBridgeIdRef.current = selectedBridgeId
+  useEffect(() => {
+    onBridgeSelectRef.current = onBridgeSelect
+    minuteRef.current = minute
+    selectedBridgeIdRef.current = selectedBridgeId
+  }, [onBridgeSelect, minute, selectedBridgeId])
 
   useEffect(() => {
     if (!containerRef.current) return undefined
@@ -68,23 +73,32 @@ export function BridgeMap({ minute, selectedBridgeId, onBridgeSelect }) {
         cameraBridges[0].coordinates,
       ),
     )
-    const map = new maplibregl.Map({
-      container: containerRef.current,
-      style: MAP_STYLE,
-      center: [30.34, 59.93],
-      zoom: 10.8,
-      minZoom: 9,
-      maxZoom: 18,
-      pitch: 0,
-      bearing: 0,
-      dragRotate: false,
-      pitchWithRotate: false,
-      attributionControl: true,
-      maxBounds: [
-        [29.45, 59.45],
-        [31.25, 60.35],
-      ],
-    })
+    let map
+    try {
+      map = new maplibregl.Map({
+        container: containerRef.current,
+        style: MAP_STYLE,
+        center: [30.34, 59.93],
+        zoom: 10.8,
+        minZoom: 9,
+        maxZoom: 18,
+        pitch: 0,
+        bearing: 0,
+        dragRotate: false,
+        pitchWithRotate: false,
+        attributionControl: true,
+        zoomLevelsToOverscale: undefined,
+        maxBounds: [
+          [29.45, 59.45],
+          [31.25, 60.35],
+        ],
+      })
+    } catch {
+      // oxlint-disable-next-line react/set-state-in-effect -- Report external map initialization failure in the existing error UI.
+      setMapError(true)
+      setMapReady(false)
+      return undefined
+    }
 
     const initialCamera = map.cameraForBounds(bounds, {
       padding: getCameraPadding(),
